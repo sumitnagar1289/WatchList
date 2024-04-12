@@ -22,7 +22,7 @@ function SignUp() {
         localStorage.setItem('emails', JSON.stringify(updatedEmails));
         localStorage.setItem('userEmail', email); // Set userEmail in localStorage
         // Navigate to the login page after signing up
-        navigate('/login');
+        navigate('/');
       }
     }
   };

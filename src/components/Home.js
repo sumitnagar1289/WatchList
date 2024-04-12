@@ -74,7 +74,7 @@ function Home({ setIsLoggedIn }) {
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn');
-    navigate("/login");
+    navigate("/");
   };
 
   return (
