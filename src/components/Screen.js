@@ -13,7 +13,7 @@ const Screen = () => {
       setIsLoading(true);
       const encodedSearch = encodeURIComponent(search.trim());
       const result = await fetch(
-        `http://www.omdbapi.com/?s=${encodedSearch}&apikey=cfd38099`
+        `https://www.omdbapi.com/?s=${encodedSearch}&apikey=cfd38099`
       );
       const data = await result.json();
       const searchResults = data.Search || [];
