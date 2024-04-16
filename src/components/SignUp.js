@@ -3,12 +3,18 @@ import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = () => {
     if (!email.trim()) {
       setError('Please enter your email address.');
+    } else if (!password.trim()) {
+      setError('Please enter your password.');
+    } else if (password !== confirmPassword) {
+      setError('Passwords do not match.');
     } else {
       setError('');
       // Retrieve existing emails from local storage
@@ -19,14 +25,16 @@ function SignUp() {
       } else {
         // Add the new email to the existing emails array
         const updatedEmails = [...existingEmails, email];
+        const existingPasswords = JSON.parse(localStorage.getItem('passwords')) || [];
+        const updatedPasswords = [...existingPasswords, password]; // Store password in plain text
         localStorage.setItem('emails', JSON.stringify(updatedEmails));
+        localStorage.setItem('passwords', JSON.stringify(updatedPasswords));
         localStorage.setItem('userEmail', email); // Set userEmail in localStorage
         // Navigate to the login page after signing up
-        navigate('/');
+        navigate('/login');
       }
     }
   };
-
 
   return (
     <div className="container mx-auto mt-20 w-1/3  ">
@@ -46,6 +54,31 @@ function SignUp() {
             />
             {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
           </div>
+          <div className="mb-4 ">
+            <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+          </div>
+          <div className="mb-4 ">
+            <label htmlFor="confirmPassword" className="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+          </div>
+          {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
           <div className="flex items-center justify-center">
             <button
               onClick={handleSubmit}
