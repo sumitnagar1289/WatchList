@@ -31,7 +31,7 @@ function SignUp() {
         localStorage.setItem('passwords', JSON.stringify(updatedPasswords));
         localStorage.setItem('userEmail', email); // Set userEmail in localStorage
         // Navigate to the login page after signing up
-        navigate('/login');
+        navigate('/');
       }
     }
   };
